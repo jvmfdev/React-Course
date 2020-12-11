@@ -24,7 +24,7 @@ const minLength=len=>val=>val&&(val.length>=len);
             </div>
         )
     }
-    function RenderComments({comments, addComment, campsiteId}){
+    function RenderComments({comments, postComment, campsiteId}){
         console.log(comments);
         if(comments){
             return(
@@ -32,7 +32,7 @@ const minLength=len=>val=>val&&(val.length>=len);
                     <h4>Comments</h4>
                     <div> {comments.map(comment=> <div key={comment.id}> {comment.text} <br /> -- {comment.author}, {new Intl.DateTimeFormat('en-US', 
                     { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</div>)}  </div>
-                    <CommentForm campsiteId={campsiteId} addComment={addComment} />
+                    <CommentForm campsiteId={campsiteId} postComment={postComment} />
                 </div>
             );
         }
@@ -78,7 +78,7 @@ const minLength=len=>val=>val&&(val.length>=len);
                         <RenderCampsite campsite ={props.campsite} />
                         <RenderComments 
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
                     />
                     </div>
@@ -111,7 +111,7 @@ const minLength=len=>val=>val&&(val.length>=len);
         }
         handleSubmit(values){
             this.toggleModal();
-            this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
+            this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
         }
         render(){
             return(
